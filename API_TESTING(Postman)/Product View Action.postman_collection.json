@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "398372d8-700c-45bf-97ee-201ddff12036",
+		"name": "Product View Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Return all the products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Shopper_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/products",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Returns all the default products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Shopper_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}products/alpha?zoneId=ALPHA",
+					"host": [
+						"{{ShopperStack_Base_Url}}products"
+					],
+					"path": [
+						"alpha"
+					],
+					"query": [
+						{
+							"key": "zoneId",
+							"value": "ALPHA"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

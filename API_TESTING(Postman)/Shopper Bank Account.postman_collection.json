@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "d54b94f8-8a43-4d14-b955-375b95698ddd",
+		"name": "Shopper Bank Account",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Create Bank Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1)  To fetch Bank Account Id\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Bank Account Id  fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.bankAccountId)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Account_Id\",ResponseBody5.data.bankAccountId)\r",
+							"});\r",
+							"\r",
+							"// 2)  To fetch Bank Account Number\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"bank account number fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.bankAccountNumber)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Account_Number\",ResponseBody5.data.bankAccountNumber)\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 3)  To fetch Bank Account Password\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Bank Account Password  fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.password)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Account_Password\",ResponseBody5.data.password)\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 4)  To fetch Bank Account Balance\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Bank Account Balance  fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.balance)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Account_Balance\",ResponseBody5.data.balance)\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/bankaccounts?bankName=TBI&email=jkl@gmail.com&shopperId={{My_Variable}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"bankaccounts"
+					],
+					"query": [
+						{
+							"key": "bankName",
+							"value": "TBI"
+						},
+						{
+							"key": "email",
+							"value": "jkl@gmail.com"
+						},
+						{
+							"key": "shopperId",
+							"value": "{{My_Variable}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bank account of shopper",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/bankaccounts?shopperId={{My_Variable}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"bankaccounts"
+					],
+					"query": [
+						{
+							"key": "shopperId",
+							"value": "{{My_Variable}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update bank account balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/bankaccounts?action=CREDIT&amount=10000.0&number=5013401201809480",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"bankaccounts"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "CREDIT"
+						},
+						{
+							"key": "amount",
+							"value": "10000.0"
+						},
+						{
+							"key": "number",
+							"value": "5013401201809480"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate bank account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"{{Shoppers_Email}}\",\r\n  \"password\": \"43fJv1y\",\r\n  \"role\": \"SHOPPER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/bankaccounts/login?bankName={{Bank_Name}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"bankaccounts",
+						"login"
+					],
+					"query": [
+						{
+							"key": "bankName",
+							"value": "{{Bank_Name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

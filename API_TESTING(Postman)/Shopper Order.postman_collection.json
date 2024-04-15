@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "7d9d2572-e66b-47ea-ac99-e39fc92834b3",
+		"name": "Shopper Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Place order from cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to fetch the Order Id\r",
+							"\r",
+							"pm.test(\"Order Id fetched\",function()\r",
+							"{\r",
+							"    ResponseBody=pm.response.json();\r",
+							"    pm.collectionVariables.set(\"Order_Id\",ResponseBody.data.orderId)\r",
+							"    console.log(Order_Id);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"addressId\": {{Address_Id}},\r\n    \"buildingInfo\": \"{{Building_Name}}\",\r\n    \"city\": \"Pune\",\r\n    \"country\": \"India\",\r\n    \"landmark\": \"Waterpark\",\r\n    \"name\": \"{{Shopper_Name}}\",\r\n    \"phone\": \"{{Phone_No}}\",\r\n    \"pincode\": \"432105\",\r\n    \"state\": \"Maharashtra\",\r\n    \"streetInfo\": \"Hospital\",\r\n    \"type\": \"Home\"\r\n  },\r\n  \"paymentMode\": \"COD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/orders",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Display order history",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/orders",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/orders/{{Order_Id}}?status=DELIVERED",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"orders",
+						"{{Order_Id}}"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "DELIVERED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Invoice copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/orders/{{Order_Id}}/invoice",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"orders",
+						"{{Order_Id}}",
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Order_Id",
+			"value": ""
+		}
+	]
+}

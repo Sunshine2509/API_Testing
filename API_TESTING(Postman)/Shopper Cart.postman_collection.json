@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "7443a918-f10e-48e6-9a82-806a71167d6e",
+		"name": "Shopper Cart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Add a product to the cart",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// 1)Code for generating different Product Id\r",
+							"\r",
+							"let RandomNumber1=Math.floor(Math.random()*100);\r",
+							"pm.globals.set(\"ProductID\",RandomNumber1)\r",
+							"console.log(RandomNumber1);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to fetch the Item id\r",
+							"\r",
+							"pm.test(\"Item id fetched\",function()\r",
+							"{\r",
+							"    ResponseBody=pm.response.json();\r",
+							"    pm.collectionVariables.set(\"Item_Id\",ResponseBody.data.itemId)\r",
+							"    console.log(Item_Id);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": {{ProductID}},\r\n  \"quantity\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/carts/",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"carts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the products from the cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/carts",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a product in the cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": {{Product_Id}},\r\n  \"quantity\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/carts/{{Item_Id}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"carts",
+						"{{Item_Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a product in the cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/carts/{{Product_Id}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"carts",
+						"{{Product_Id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Product_Id",
+			"value": ""
+		},
+		{
+			"key": "Item_Id",
+			"value": ""
+		}
+	]
+}

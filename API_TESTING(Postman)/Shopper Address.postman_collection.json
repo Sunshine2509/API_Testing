@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "c9c20dd3-a87b-457f-8890-f1a995f8ed6a",
+		"name": "Shopper Address",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Add a new address",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// 1)Code for generating different building information\r",
+							"\r",
+							"let RandomNumber1=Math.floor(Math.random()*100);\r",
+							"pm.collectionVariables.set(\"Building\",\"SwarnBhawan\"+RandomNumber1)\r",
+							"console.log(RandomNumber1);\r",
+							"\r",
+							"// 2)Code for generating different Phone number\r",
+							"\r",
+							"let RandomNumber2=Math.floor(Math.random()*100);\r",
+							"pm.collectionVariables.set(\"PhoneNo\",\"98223690\"+RandomNumber2)\r",
+							"console.log(RandomNumber2);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1 : Test the Status code\r",
+							"\r",
+							"pm.test(\"To verify status code is 201\",function(){\r",
+							"   pm.response.to.have.status(201);\r",
+							"   });\r",
+							"\r",
+							"   // 2 : Test the Status description\r",
+							"\r",
+							"   pm.test(\"To verify status description is Created\",function(){\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"// 3 : Test to verify the response time\r",
+							"\r",
+							"pm.test(\"Response time should be less than 1000ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"// 4(1) : Test to verify body\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Test to fetch the different Building names\r",
+							"\r",
+							"pm.test(\"Building names fetched\",function()\r",
+							"{\r",
+							"    ResponseBody2=pm.response.json();\r",
+							"    Building=ResponseBody2.buildingInfo\r",
+							"    console.log(Building);\r",
+							"    \r",
+							"    \r",
+							"});\r",
+							"\r",
+							"// Test to fetch the different Phone Number\r",
+							"\r",
+							"pm.test(\"Password fetched\",function()\r",
+							"{\r",
+							"    ResponseBody2=pm.response.json();\r",
+							"    PhoneNo=ResponseBody2.phone\r",
+							"    console.log(PhoneNo);\r",
+							"});\r",
+							"\r",
+							"// Test to fetch the different First Names\r",
+							"\r",
+							"pm.test(\"First FirstName fetched\",function()\r",
+							"{\r",
+							"    ResponseBody4=pm.response.json();\r",
+							"    FirstName=ResponseBody4.firstName\r",
+							"    console.log(FirstName);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//  a) To fetch current address id \r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Address Id fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.addressId)\r",
+							"   \r",
+							"   pm.globals.set(\"Address_Id\",ResponseBody5.data.addressId)\r",
+							"});\r",
+							"\r",
+							"// b) To fetch current Building name\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Building name fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.buildingInfo)\r",
+							"   \r",
+							"   pm.globals.set(\"Building_Name\",ResponseBody5.data.buildingInfo)\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// c) To fetch current Shopper name\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Shopper name fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.name)\r",
+							"   \r",
+							"   pm.globals.set(\"Shopper_Name\",ResponseBody5.data.name)\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// d) To fetch current Phone Number \r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Phone number fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.phone)\r",
+							"   \r",
+							"   pm.globals.set(\"Phone_No\",ResponseBody5.data.phone)\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"addressId\": 0,\r\n  \"buildingInfo\":\"{{Building}}\",\r\n  \"city\": \"Pune\",\r\n  \"country\": \"India\",\r\n  \"landmark\": \"Waterpark\",\r\n  \"name\": \"{{Shopper_Name}}\",\r\n  \"phone\": \"{{PhoneNo}}\",\r\n  \"pincode\": \"432105\",\r\n  \"state\": \"Maharashtra\",\r\n  \"streetInfo\": \"Hospital\",\r\n  \"type\": \"Home\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/address",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the addresses",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Shopper_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{Address_Id}}/address",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{Address_Id}}",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a particular address by addressId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Shopper_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/address/{{Address_Id}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"address",
+						"{{Address_Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an added address",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Shopper_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"addressId\": 0,\r\n  \"buildingInfo\": \"SwarnBhavan\",\r\n  \"city\": \"Pune\",\r\n  \"country\": \"India\",\r\n  \"landmark\": \"Waterpark\",\r\n  \"name\": \"Mauli\",\r\n  \"phone\": \"1234567890\",\r\n  \"pincode\": \"432106\",\r\n  \"state\": \"Maharashtra\",\r\n  \"streetInfo\": \"Park\",\r\n  \"type\": \"Office\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/address/{{Address_Id}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"address",
+						"{{Address_Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an address",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Shopper_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/address/{{Address_Id}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"address",
+						"{{Address_Id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Address",
+			"value": ""
+		},
+		{
+			"key": "Building",
+			"value": ""
+		},
+		{
+			"key": "PhoneNo",
+			"value": ""
+		}
+	]
+}

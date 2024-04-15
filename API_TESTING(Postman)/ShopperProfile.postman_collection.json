@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "78f03f2e-a18d-486c-886f-579f2ba9d353",
+		"name": "ShopperProfile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Register as shopper",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Code for generating different email address\r",
+							"\r",
+							"let RandomNumber1=Math.floor(Math.random()*100);\r",
+							"pm.collectionVariables.set(\"Email\",RandomNumber1+\"sunshine@gmail.com\")\r",
+							"console.log(RandomNumber1);\r",
+							"\r",
+							"// Code for generating different password\r",
+							"\r",
+							"let RandomNumber2=Math.floor(Math.random()*100);\r",
+							"pm.collectionVariables.set(\"Password\",\"Sunshine@\"+RandomNumber2)\r",
+							"console.log(RandomNumber2);\r",
+							"\r",
+							"let RandomNumber3=Math.floor(Math.random()*100);\r",
+							"pm.collectionVariables.set(\"PhoneNo\",\"90220110\"+RandomNumber3)\r",
+							"console.log(RandomNumber3);\r",
+							"\r",
+							"let RandomNumber4=Math.floor(Math.random()*100);\r",
+							"pm.collectionVariables.set(\"FirstName\",\"Sunshine\"+RandomNumber4)\r",
+							"console.log(RandomNumber4);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1 : Test the Status code\r",
+							"\r",
+							"pm.test(\"To verify status code is 201\",function(){\r",
+							"   pm.response.to.have.status(201);\r",
+							"   });\r",
+							"\r",
+							"   // 2 : Test the Status description\r",
+							"\r",
+							"   pm.test(\"To verify status description is Created\",function(){\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"// 3 : Test to verify the response time\r",
+							"\r",
+							"pm.test(\"Response time should be less than 1000ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"// 4(1) : Test to verify body\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+							"});\r",
+							"\r",
+							"// Test to fetch the email Id\r",
+							"\r",
+							"pm.test(\"Email Id fetched\",function()\r",
+							"{\r",
+							"    ResponseBody1=pm.response.json();\r",
+							"    Email=ResponseBody1.email\r",
+							"    console.log(Email);\r",
+							"    pm.collectionVariables.set(\"EmailId\",Email)\r",
+							"});\r",
+							"\r",
+							"var Token = \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdW5zaGluZUBnbWFpbC5jb20gU0hPUFBFUiIsImV4cCI6MTcxMjk3ODYzMiwiaWF0IjoxNzEyOTQyNjMyfQ.9vvT8WQx6MQXSO07Owfnzhcfn_ImQSPk5oxMGg6XoQg\" ; \r",
+							"\r",
+							"// Test to fetch the different password\r",
+							"\r",
+							"pm.test(\"Password fetched\",function()\r",
+							"{\r",
+							"    ResponseBody2=pm.response.json();\r",
+							"    Password=ResponseBody2.password\r",
+							"    console.log(Password);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"// Test to fetch the different Phone Number\r",
+							"\r",
+							"pm.test(\"Password fetched\",function()\r",
+							"{\r",
+							"    ResponseBody3=pm.response.json();\r",
+							"    PhoneNo=ResponseBody3.phone\r",
+							"    console.log(PhoneNo);\r",
+							"});\r",
+							"\r",
+							"// Test to fetch the different First Names\r",
+							"\r",
+							"pm.test(\"First FirstName fetched\",function()\r",
+							"{\r",
+							"    ResponseBody4=pm.response.json();\r",
+							"    FirstName=ResponseBody4.firstName\r",
+							"    console.log(FirstName);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdW5zaGluZUBnbWFpbC5jb20gU0hPUFBFUiIsImV4cCI6MTcxMjk3ODYzMiwiaWF0IjoxNzEyOTQyNjMyfQ.9vvT8WQx6MQXSO07Owfnzhcfn_ImQSPk5oxMGg6XoQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"Motala\",\r\n  \"country\": \"India\",\r\n  \"email\": \"{{Email}}\",\r\n  \"firstName\": \"{{FirstName}}\",\r\n  \"gender\": \"FEMALE\",\r\n  \"lastName\": \"Patil\",\r\n  \"password\": \"{{Password}}\",\r\n  \"phone\":\"{{PhoneNo}}\",\r\n  \"state\": \"Maharashtra\",\r\n  \"zoneId\": \"ALPHA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/shoppers",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"shoppers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"sunshine@gmail.com\",\r\n  \"password\": \"Sunshine@123\",\r\n  \"role\": \"SHOPPER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/users/login",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find shopper by shopperId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdW5zaGluZUBnbWFpbC5jb20gU0hPUFBFUiIsImV4cCI6MTcxMjk3ODYzMiwiaWF0IjoxNzEyOTQyNjMyfQ.9vvT8WQx6MQXSO07Owfnzhcfn_ImQSPk5oxMGg6XoQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/shoppers/59791",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"59791"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the shopper details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdW5zaGluZUBnbWFpbC5jb20gU0hPUFBFUiIsImV4cCI6MTcxMjk3ODYzMiwiaWF0IjoxNzEyOTQyNjMyfQ.9vvT8WQx6MQXSO07Owfnzhcfn_ImQSPk5oxMGg6XoQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"Pune\",\r\n  \"country\": \"India\",\r\n  \"email\": \"{{Email}}\",\r\n  \"firstName\": \"{{FirstName}}\",\r\n  \"gender\": \"FEMALE\",\r\n  \"lastName\": \"Patil\",\r\n  \"password\": \"{{Password}}\",\r\n  \"phone\":\"{{PhoneNo}}\",\r\n  \"state\": \"Maharashtra\",\r\n  \"zoneId\": \"ALPHA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/shoppers//59815",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"",
+						"59815"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate URL for forgot password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdW5zaGluZUBnbWFpbC5jb20gU0hPUFBFUiIsImV4cCI6MTcxMjk3ODYzMiwiaWF0IjoxNzEyOTQyNjMyfQ.9vvT8WQx6MQXSO07Owfnzhcfn_ImQSPk5oxMGg6XoQg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "email",
+						"value": "15sunshine@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "role",
+						"value": "SHOPPER",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/users/forgot-password",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"users",
+						"forgot-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resets the password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "dHbHmsKX1XYhqsKIHKbmS2EaUjvM3Qg9jbYGydnA7mrlw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"password\": \"123456\"\r\n    }\r\n     ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/users/reset-password",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"users",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sets the user password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "password",
+						"value": "Sunshine@91",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ShopperProfile_Url}}/users/verify-account?token=DVSaWkN4MyuLvrc4rO7jyMXPBSXMoiz9FDp91PMWuzkHC",
+					"host": [
+						"{{ShopperProfile_Url}}"
+					],
+					"path": [
+						"users",
+						"verify-account"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "DVSaWkN4MyuLvrc4rO7jyMXPBSXMoiz9FDp91PMWuzkHC"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "ShopperProfile_Url",
+			"value": "https://www.shoppersstack.com/shopping"
+		},
+		{
+			"key": "ShopperProfile_Url",
+			"value": ""
+		},
+		{
+			"key": "Email",
+			"value": ""
+		},
+		{
+			"key": "EmailId",
+			"value": ""
+		},
+		{
+			"key": "firstName",
+			"value": ""
+		},
+		{
+			"key": "phone",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "First_Name",
+			"value": ""
+		},
+		{
+			"key": "PhoneNo",
+			"value": ""
+		},
+		{
+			"key": "Set_Password",
+			"value": ""
+		},
+		{
+			"key": "FirstName",
+			"value": ""
+		},
+		{
+			"key": "Phone",
+			"value": ""
+		},
+		{
+			"key": "Password",
+			"value": ""
+		}
+	]
+}

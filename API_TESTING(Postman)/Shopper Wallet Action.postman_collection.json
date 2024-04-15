@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "8bcd50aa-3daa-4a18-aaf4-de20d86496e5",
+		"name": "Shopper Wallet Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Get all wallet Transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/{{My_Variable}}/wallets",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"{{My_Variable}}",
+						"wallets"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

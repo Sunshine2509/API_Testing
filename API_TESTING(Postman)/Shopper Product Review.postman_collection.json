@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "3c54ab2c-aa58-4c90-a956-42734e8b38cb",
+		"name": "Shopper Product Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Get all the reviews of a product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/reviews/{{ProductID}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"reviews",
+						"{{ProductID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a review to delivered product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to fetch the Review id\r",
+							"\r",
+							"pm.test(\"Review id fetched\",function()\r",
+							"{\r",
+							"    ResponseBody=pm.response.json();\r",
+							"    pm.collectionVariables.set(\"Review_Id\",ResponseBody.data.reviewId)\r",
+							"    console.log(ResponseBody.data.reviewId);\r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateTime\": \"2024-04-14T10:09:27.620Z\",\r\n  \"description\": \"This is a good product\",\r\n  \"heading\": \"Good\",\r\n  \"rating\": 4,\r\n  \"shopperId\": {{My_Variable}},\r\n  \"shopperName\": \"{{Shopper_Name}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/reviews?productId={{ProductID}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"reviews"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{ProductID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an added review",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateTime\": \"2024-04-14T10:09:27.620Z\",\r\n  \"description\": \"This is a good product\",\r\n  \"heading\": \"Good\",\r\n  \"rating\": 3.9,\r\n  \"shopperId\": {{My_Variable}},\r\n  \"shopperName\": \"{{Shopper_Name}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/reviews/{{Review_Id}}?productId={{ProductID}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"reviews",
+						"{{Review_Id}}"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{ProductID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an added review",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/reviews/{{Review_Id}}?productId={{ProductID}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"reviews",
+						"{{Review_Id}}"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{ProductID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Review_Id",
+			"value": ""
+		}
+	]
+}

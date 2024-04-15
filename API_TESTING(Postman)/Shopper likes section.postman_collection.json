@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "8aa262c8-469d-4e1c-be38-b0d9aa4ae221",
+		"name": "Shopper likes section",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Returns all the likes of shopper",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/likes?shopperId={{My_Variable}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "shopperId",
+							"value": "{{My_Variable}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

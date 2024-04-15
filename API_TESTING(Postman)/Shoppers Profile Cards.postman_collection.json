@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "f6cc4361-e308-4106-981f-24120543ceb7",
+		"name": "Shoppers Profile Cards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Save the card data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1)  To fetch Shopper Card Id\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Shopper Card Id\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.id)\r",
+							"   \r",
+							"   pm.globals.set(\"Shopper_Card_Id\",ResponseBody5.data.id)\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cvv\": \"{{Bank_CVV}}\",\r\n  \"expiryDate\": \"{{Card_Expiry_Date}}\",\r\n  \"id\":{{Bank_Card_Id}},\r\n  \"nameOnCard\": \"{{Shopper_Name}}\",\r\n  \"number\": \"{{Card_Number}}\",\r\n  \"type\": \"CREDIT\",\r\n  \"userId\": {{My_Variable}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the card data based on type",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards/{{My_Variable}}?type=CREDIT",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards",
+						"{{My_Variable}}"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "CREDIT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Returns all the shoppers cards",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/shoppers/cards?cardType=CREDIT&shopperId={{My_Variable}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"shoppers",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "cardType",
+							"value": "CREDIT"
+						},
+						{
+							"key": "shopperId",
+							"value": "{{My_Variable}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete card data based on shopper card id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards/3299",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards",
+						"3299"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

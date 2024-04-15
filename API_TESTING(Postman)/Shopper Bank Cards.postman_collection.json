@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "672854c6-34cb-41a7-868c-26e0c4760342",
+		"name": "Shopper Bank Cards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33696721"
+	},
+	"item": [
+		{
+			"name": "Create a new card for a given bank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1)  To fetch Card Number\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"card number fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.number)\r",
+							"   \r",
+							"   pm.globals.set(\"Card_Number\",ResponseBody5.data.number)\r",
+							"});\r",
+							"\r",
+							"//  2) To fetch Bank Card Id\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Bank Card Id fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.cardId)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Card_Id\",ResponseBody5.data.cardId)\r",
+							"});\r",
+							"\r",
+							"//  3) To fetch cvv \r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"cvv fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.cvv)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_CVV\",ResponseBody5.data.cvv)\r",
+							"});\r",
+							"\r",
+							"// 4)  To fetch pin \r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"pin fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.pin)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Card_Pin\",ResponseBody5.data.pin)\r",
+							"});\r",
+							"\r",
+							"// 5)  To fetch Expiry Date\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Expiry Date fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.expiryDate)\r",
+							"   \r",
+							"   pm.globals.set(\"Card_Expiry_Date\",ResponseBody5.data.expiryDate)\r",
+							"});\r",
+							"\r",
+							"// 6) To fetch Bank Name\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Bank Name fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.bankName)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Name\",ResponseBody5.data.bankName)\r",
+							"});\r",
+							"\r",
+							"//  7) To fetch Balance\r",
+							"// To fetch the response body\r",
+							"\r",
+							"pm.test(\"Balance fetched\", function()\r",
+							"{\r",
+							"    // for connecting different requests\r",
+							"\r",
+							"   var ResponseBody5=pm.response.json();\r",
+							"   console.log(ResponseBody5.data.balance)\r",
+							"   \r",
+							"   pm.globals.set(\"Bank_Balance\",ResponseBody5.data.balance)\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards?bankName=TBI&cardType=CREDIT&email={{Shoppers_Email}}&name={{Shopper_Name}}&shopperId={{My_Variable}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "bankName",
+							"value": "TBI"
+						},
+						{
+							"key": "cardType",
+							"value": "CREDIT"
+						},
+						{
+							"key": "email",
+							"value": "{{Shoppers_Email}}"
+						},
+						{
+							"key": "name",
+							"value": "{{Shopper_Name}}"
+						},
+						{
+							"key": "shopperId",
+							"value": "{{My_Variable}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update card balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards?amount=1.0&cardNumber={{Card_Number}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "1.0"
+						},
+						{
+							"key": "cardNumber",
+							"value": "{{Card_Number}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate bank card with amount",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"balance\": {{Bank_Balance}},\r\n  \"bankName\": \"{{Bank_Name}}\",\r\n  \"cardId\": {{Bank_Card_Id}},\r\n  \"cardType\": \"CREDIT\",\r\n  \"cvv\": {{Bank_CVV}},\r\n  \"email\": \"{{Shoppers_Email}}\",\r\n  \"expiryDate\": \"{{Card_Expiry_Date}}\",\r\n  \"nameOnCard\": \"{{Shopper_Name}}\",\r\n  \"number\": \"{{Card_Number}}\",\r\n  \"pin\":{{Bank_Card_Pin}} ,\r\n  \"shopperId\": {{My_Variable}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards/transaction?amount={{Bank_Balance}}",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "{{Bank_Balance}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Bank Card",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{My_Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"balance\": {{Bank_Balance}},\r\n  \"bankName\": \"{{Bank_Name}}\",\r\n  \"cardId\": {{Bank_Card_Id}},\r\n  \"cardType\": \"CREDIT\",\r\n  \"cvv\": {{Bank_CVV}},\r\n  \"email\": \"{{Shoppers_Email}}\",\r\n  \"expiryDate\": \"{{Card_Expiry_Date}}\",\r\n  \"nameOnCard\": \"{{Shopper_Name}}\",\r\n  \"number\": \"{{Card_Number}}\",\r\n  \"pin\": {{Bank_Card_Pin}},\r\n  \"shopperId\": {{My_Variable}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ShopperStack_Base_Url}}/cards/verify",
+					"host": [
+						"{{ShopperStack_Base_Url}}"
+					],
+					"path": [
+						"cards",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
